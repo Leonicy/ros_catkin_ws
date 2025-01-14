@@ -9,14 +9,21 @@
         <arg name="headless" value="false"/>
         <arg name="debug" value="false"/>
     </include>
-    <!-- 加载控制器配置文件 -->
-    <rosparam file="$(find gisbot_localization_1)/config/control.yaml" command="load"/>
+
     <!-- 启动控制器管理器 -->
-    <node name="controller_manager" pkg="controller_manager" type="controller_manager" />
-    <!-- 启动control -->
-    <include file="$(find gisbot_localization_1)/launch/control.launch"/>
+    <node name="controller_manager" pkg="controller_manager" 
+          type="controller_manager"  output="screen"/>
+    
+    <!-- 加载控制器配置文件 -->
+    <rosparam file="$(find gisbot_localization_1)/config/ackermann_controller.yaml" command="load"/>
+    
     <!-- Spawn the Ackermann Steering Controller -->
-    <node name="ackermann_steering_controller_spawner" pkg="controller_manager" type="spawner" args="ackermann_steering_controller" />
+    <node name="ackermann_steering_controller_spawner" pkg="controller_manager" 
+          type="spawner" args="ackermann_steering_controller" output="screen"/>
+    
+    <!-- 启动control节点-->
+    <include file="$(find gisbot_localization_1)/launch/control.launch"/>
+    
     <!-- 在 gazebo 中显示机器人模型 -->
     <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model my_car -param robot_description" output="screen"/>
 

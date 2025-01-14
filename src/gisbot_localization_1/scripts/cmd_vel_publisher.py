@@ -3,6 +3,11 @@ import rospy
 from geometry_msgs.msg import Twist
 import math
 
+'''定义回调函数，处理接收到的 cmd_vel 消息'''
+def cmd_vel_callback(msg):
+    rospy.loginfo("Received cmd_vel message:")
+    rospy.loginfo("Linear Velocity: %f", msg.linear.x)
+    rospy.loginfo("Angular Velocity: %f", msg.angular.z)
 def main():
     #初始化一个名为 cmd_vel_publisher 的 ROS 节点
     rospy.init_node('cmd_vel_publisher')
@@ -16,7 +21,7 @@ def main():
     while not rospy.is_shutdown():
         # 获取用户输入或其他控制逻辑来设置速度和转向角
         linear_speed = 0.2  # 线速度，单位：米/秒
-        steering_angle = 0.0  # 转向角速度，单位：弧度
+        steering_angle = 0.1  # 转向角速度，单位：弧度
         # 简单的阿克曼转向几何计算
         if abs(steering_angle) > max_steering_angle:
             steering_angle = math.copysign(max_steering_angle, steering_angle)
@@ -24,7 +29,7 @@ def main():
             #outer_wheel_angle = math.atan(math.tan(steering_angle) * (wheelbase / (wheelbase / math.cos(steering_angle) + track_width / 2)))
             cmd_vel_msg.linear.x = linear_speed
             cmd_vel_msg.angular.z = steering_angle
-            pub.publish(cmd_vel_msg)
+            pub.publish(cmd_vel_msg) #发布消息
             rate.sleep() # 按照设定的 10Hz 频率休眠，以控制发布频率
 
 if __name__ == '__main__':
