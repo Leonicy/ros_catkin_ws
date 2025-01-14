@@ -5,7 +5,7 @@
     <gazebo>
         <plugin name="ackermann_steering_controller" filename="libgazebo_ros_ackermann_steering_controller.so">
             <!-- 加载控制器配置文件 -->
-            <rosparam command="load" file="$(gisbot_localization_1)/config/ackermann_controller.yaml"/>
+            <rosparam command="load" file="$(find gisbot_localization_1)/config/ackermann_controller.yaml"/>
         </plugin>
     </gazebo>
 

@@ -12,10 +12,11 @@
     <!-- 加载控制器配置文件 -->
     <rosparam file="$(find gisbot_localization_1)/config/control.yaml" command="load"/>
     <!-- 启动控制器管理器 -->
-    <node name="controller_manager" pkg="controller_manager" type="ros_control_node" />
+    <node name="controller_manager" pkg="controller_manager" type="controller_manager" />
     <!-- 启动control -->
     <include file="$(find gisbot_localization_1)/launch/control.launch"/>
-
+    <!-- Spawn the Ackermann Steering Controller -->
+    <node name="ackermann_steering_controller_spawner" pkg="controller_manager" type="spawner" args="ackermann_steering_controller" />
     <!-- 在 gazebo 中显示机器人模型 -->
     <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model my_car -param robot_description" output="screen"/>
 

@@ -1,5 +1,5 @@
 # ackermann_controller.yaml
-
+cmd_vel_topic: "/cmd_vel"
 ackermann_steering_controller:
   type: "ackermann_steering_controller/AckermannSteeringController"
   #左驱动轮
@@ -8,7 +8,17 @@ ackermann_steering_controller:
   right_wheel: "back_right_wheel"
   #转向轮
   steering_wheel: "front_left_wheel_joint"
+  #steering_wheel_right: "front_left_wheel_joint"
   cmd_vel_topic: "/cmd_vel"
   publish_rate: 50
   wheel_separation: 0.25  # 两个前轮之间的距离
   wheel_radius: 0.03      # 车轮半径
+
+   # 控制器参数
+  max_velocity: 1.0                         # 最大线速度（m/s）
+  max_steering_angle: 0.5                   # 最大转向角度（rad）
+  min_velocity: 0.1                         # 最小线速度（m/s）
+
+  # 增加一些反馈控制参数
+  steering_sensitivity: 1.0                 # 转向灵敏度
+  velocity_scaling_factor: 1.0              # 速度缩放因子
