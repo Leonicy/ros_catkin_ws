@@ -1,0 +1,8 @@
+prefix=/home/leo/ros_catkin_ws/install
+
+Name: gisbot_localization_1
+Description: Description of gisbot_localization_1
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

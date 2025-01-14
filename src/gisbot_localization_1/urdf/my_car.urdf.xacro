@@ -1,0 +1,9 @@
+<?xml version="1.0"?>  
+<!-- 按照先后顺序组合my_car -->
+<robot name="my_car" xmlns:xacro="http://wiki.ros.org/xacro">
+    <!--惯性矩阵-->
+    <xacro:include filename="inertial_matrix.xacro" />
+    <!--本体-->
+    <xacro:include filename="my_car_base.xacro" />
+
+</robot>

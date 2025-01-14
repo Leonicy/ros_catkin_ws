@@ -1,0 +1,1 @@
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/lib/gisbot_localization_1/cmd_vel_publisher.py

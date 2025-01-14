@@ -1,0 +1,1 @@
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/share/gisbot_localization_1/cmake/gisbot_localization_1Config.cmake

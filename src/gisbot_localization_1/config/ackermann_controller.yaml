@@ -1,0 +1,14 @@
+# ackermann_controller.yaml
+
+ackermann_steering_controller:
+  type: "ackermann_steering_controller/AckermannSteeringController"
+  #左驱动轮
+  left_wheel: "back_left_wheel"
+  #右驱动轮
+  right_wheel: "back_right_wheel"
+  #转向轮
+  steering_wheel: "front_left_wheel_joint"
+  cmd_vel_topic: "/cmd_vel"
+  publish_rate: 50
+  wheel_separation: 0.25  # 两个前轮之间的距离
+  wheel_radius: 0.03      # 车轮半径

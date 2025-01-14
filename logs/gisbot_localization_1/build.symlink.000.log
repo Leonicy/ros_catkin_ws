@@ -1,0 +1,5 @@
+Symlinking /home/leo/ros_catkin_ws/devel/share/gisbot_localization_1/cmake/gisbot_localization_1Config.cmake
+Symlinking /home/leo/ros_catkin_ws/devel/share/gisbot_localization_1/cmake/gisbot_localization_1Config-version.cmake
+Symlinking /home/leo/ros_catkin_ws/devel/lib/gisbot_localization_1/cmake.lock
+Symlinking /home/leo/ros_catkin_ws/devel/lib/gisbot_localization_1/cmd_vel_publisher.py
+Symlinking /home/leo/ros_catkin_ws/devel/lib/pkgconfig/gisbot_localization_1.pc

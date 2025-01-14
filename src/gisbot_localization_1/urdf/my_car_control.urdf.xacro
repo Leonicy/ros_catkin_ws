@@ -1,0 +1,13 @@
+<?xml version="1.0"?>  
+<robot name="my_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 其他内容 -->
+
+    <gazebo>
+        <plugin name="ackermann_steering_controller" filename="libgazebo_ros_ackermann_steering_controller.so">
+            <!-- 加载控制器配置文件 -->
+            <rosparam command="load" file="$(gisbot_localization_1)/config/ackermann_controller.yaml"/>
+        </plugin>
+    </gazebo>
+
+    <!-- 其他内容 -->
+</robot>

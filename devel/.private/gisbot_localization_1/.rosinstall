@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/setup.sh

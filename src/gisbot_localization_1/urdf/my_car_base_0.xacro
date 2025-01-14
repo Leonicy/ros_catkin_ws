@@ -1,0 +1,114 @@
+<?xml version="1.0"?>  
+<!--
+    本模型没有设置wheel的rotation，用四轮差速
+    1.将一些常量、变量封装为 xacro:property
+      比如:PI 值、小车底盘半径、离地间距、车轮半径、宽度 ....
+    2.使用 宏 封装驱动轮以及支撑轮实现，调用相关宏生成驱动轮与支撑轮
+    3.简化模型
+    base >> 0.25*0.15*0.1
+    wheel >> r=0.03 l=0.04
+
+-->
+<!-- 根标签，必须声明 xmlns:xacro -->
+<robot name="my_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 封装变量、常量 -->
+    <!-- PI 值设置精度需要高一些，否则后续车轮翻转量计算时，可能会出现肉眼不能察觉的车轮倾斜，从而导致模型抖动 -->
+    <xacro:property name="PI" value="3.1415926"/>
+    <!-- 宏:黑色设置 -->
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0" />
+    </material>
+    <!-- 底盘属性 -->
+    <xacro:property name="base_footprint_radius" value="0.001" /> <!-- base_footprint 半径  -->
+    <xacro:property name="base_link_x" value="0.15" /> <!-- base_link x -->
+    <xacro:property name="base_link_y" value="0.25" /> <!-- base_link y -->
+    <xacro:property name="base_link_z" value="0.06" /> <!-- base_link z -->
+    <xacro:property name="base_link_m" value="5" /> <!-- 质量  -->
+    <xacro:property name="earth_space" value="0.03" /> <!--离地距离-->
+    <!-- 驱动轮属性 -->
+    <xacro:property name="wheel_dis_x" value="0.09" /> <!--驱动轮沿baselink_x方向距离-->
+    <xacro:property name="wheel_dis_y" value="0.23" /> <!--驱动轮沿baselink_y方向距离-->
+    <xacro:property name="wheel_radius" value="0.03" /><!-- 半径 -->
+    <xacro:property name="wheel_length" value="0.04" /><!-- 宽度 -->
+    <xacro:property name="wheel_m" value="0.5" /> <!-- 质量  -->
+
+    <!-- footprint -->
+    <link name="base_footprint">
+      <visual>
+        <geometry>
+          <sphere radius="${base_footprint_radius}" />
+        </geometry>
+      </visual>
+    </link>
+    <gazebo reference="base_footprint">
+      <turnGravityOff>false</turnGravityOff> <!--关闭重力-->
+    </gazebo>
+
+
+    <!-- 底盘 -->
+    <link name="base_link">
+      <visual>
+        <geometry>
+          <box size="${base_link_x} ${base_link_y} ${base_link_z}" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <material name="yellow">
+          <color rgba="0.5 0.3 0.0 0.5" />
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <box size="${base_link_x} ${base_link_y} ${base_link_z}" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </collision>
+      <xacro:box_inertial_matrix m="${base_link_m}" l="${base_link_x}" w="${base_link_y}" h="${base_link_z}" />
+    </link>
+
+    <joint name="base_link2base_footprint" type="fixed">
+      <parent link="base_footprint" />
+      <child link="base_link" />
+      <origin xyz="0 0 ${earth_space + base_link_z / 2 }" />
+    </joint>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <!-- 驱动轮 -->
+    <xacro:macro name="add_wheels" params="wheel_name x_flag y_flag">
+      <link name="${wheel_name}_wheel">
+        <visual>
+          <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+          </geometry>
+          <origin xyz="0.0 0.0 0.0" rpy="${PI / 2} 0.0 0.0" />
+          <material name="black" />
+        </visual>
+        <collision>
+          <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+          </geometry>
+          <origin xyz="0.0 0.0 0.0" rpy="${PI / 2} 0.0 0.0" />
+        </collision>
+        <xacro:cylinder_inertial_matrix m="${wheel_m}" r="${wheel_radius}" h="${wheel_length}" />
+      </link>
+
+      <joint name="${wheel_name}_wheel2base_link" type="continuous">
+        <parent link="base_link" />
+        <child link="${wheel_name}_wheel" />
+        <origin xyz="${x_flag * wheel_dis_x *0.5} ${y_flag * wheel_dis_y *0.5} -0.030" />
+        <axis xyz="0 1 0" />
+      </joint>
+
+      <gazebo reference="${wheel_name}_wheel">
+        <material>Gazebo/Red</material>
+      </gazebo>
+    </xacro:macro>
+
+    <xacro:add_wheels wheel_name="front_left" x_flag="1" y_flag="1" />
+    <xacro:add_wheels wheel_name="front_right" x_flag="1" y_flag="-1" />
+    <xacro:add_wheels wheel_name="back_left" x_flag="-1" y_flag="1" />
+    <xacro:add_wheels wheel_name="back_right" x_flag="-1" y_flag="-1" />
+    
+</robot>

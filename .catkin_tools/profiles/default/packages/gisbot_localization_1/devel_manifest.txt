@@ -1,0 +1,7 @@
+gisbot_localization_1
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/cmake.lock /home/leo/ros_catkin_ws/devel/./cmake.lock
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/share/gisbot_localization_1/cmake/gisbot_localization_1Config.cmake /home/leo/ros_catkin_ws/devel/share/gisbot_localization_1/cmake/gisbot_localization_1Config.cmake
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/share/gisbot_localization_1/cmake/gisbot_localization_1Config-version.cmake /home/leo/ros_catkin_ws/devel/share/gisbot_localization_1/cmake/gisbot_localization_1Config-version.cmake
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/lib/gisbot_localization_1/cmake.lock /home/leo/ros_catkin_ws/devel/lib/gisbot_localization_1/cmake.lock
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/lib/gisbot_localization_1/cmd_vel_publisher.py /home/leo/ros_catkin_ws/devel/lib/gisbot_localization_1/cmd_vel_publisher.py
+/home/leo/ros_catkin_ws/devel/.private/gisbot_localization_1/lib/pkgconfig/gisbot_localization_1.pc /home/leo/ros_catkin_ws/devel/lib/pkgconfig/gisbot_localization_1.pc
