@@ -10,21 +10,36 @@
         <arg name="debug" value="false"/>
     </include>
 
+    <!--加载-->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="true" output="screen">
+      <remap from="/joint_states" to="/my_car/joint_states" />
+    </node>
+
     <!-- 启动控制器管理器 -->
     <node name="controller_manager" pkg="controller_manager" 
           type="controller_manager"  output="screen"/>
-    
-    <!-- 加载控制器配置文件 -->
-    <rosparam file="$(find gisbot_localization_1)/config/ackermann_controller.yaml" command="load"/>
-    
-    <!-- Spawn the Ackermann Steering Controller -->
-    <node name="ackermann_steering_controller_spawner" pkg="controller_manager" 
-          type="spawner" args="ackermann_steering_controller" output="screen"/>
-    
-    <!-- 启动control节点-->
-    <include file="$(find gisbot_localization_1)/launch/control.launch"/>
-    
     <!-- 在 gazebo 中显示机器人模型 -->
     <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model my_car -param robot_description" output="screen"/>
+
+    <!-- 加载控制器配置文件 -->
+    <rosparam file="$(find gisbot_localization_1)/config/ackermann_controller_test.yaml" command="load"/>
+    
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="ackermann_steering_controller"/>
+    <!-- Spawn the Ackermann Steering Controller -->
+    <!--node name="ackermann_steering_controller_spawner" pkg="controller_manager" 
+          type="spawner" args="ackermann_steering_controller" output="screen"/-->
+    
+    <!--node pkg="gisbot_localization_1" type="cmd_vel_test.py" 
+        name="cmd_vel_publisher" output="screen"/-->
+
+    <node pkg="gisbot_localization_1" type="servo_commands_1.py" 
+    name="move" output="screen"/>
+        <!-- 添加一个 /cmd_vel 发布者节点，控制车辆运动 -->
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen">
+        <remap from="/cmd_vel" to="/my_car/cmd_vel"/>
+    </node>
 
 </launch>
