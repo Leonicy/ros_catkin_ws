@@ -10,7 +10,7 @@
     4.include >> inertial_matrix.xacro
 -->
 <!-- 根标签，必须声明 xmlns:xacro -->
-<robot name="my_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="my_car" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- 封装变量、常量 -->
     <!-- PI 值设置精度需要高一些，否则后续车轮翻转量计算时，可能会出现肉眼不能察觉的车轮倾斜，从而导致模型抖动 -->
     <xacro:property name="PI" value="3.1415926"/>
@@ -42,9 +42,6 @@
         </geometry>
       </visual>
     </link>
-    <gazebo reference="base_footprint">
-      <turnGravityOff>false</turnGravityOff> <!--关闭重力-->
-    </gazebo>
 
     <!-- 底盘 -->
     <link name="base_link">
@@ -72,10 +69,6 @@
       <origin xyz="0 0 ${earth_space + base_link_z / 2 }" />
     </joint>
 
-    <gazebo reference="base_link">
-        <material>Gazebo/Yellow</material>
-    </gazebo>
-
     <!-- 后驱动轮 -->
     <xacro:macro name="add_moving_wheels" params="wheel_name x_flag y_flag">
       <link name="${wheel_name}_wheel">
@@ -101,13 +94,10 @@
         <origin xyz="${x_flag * wheel_dis_x *0.5} ${y_flag * wheel_dis_y *0.5} -0.030" />
         <axis xyz="0 1 0" />
         <dynamics damping="0.0"/>
-		    <limit effort="100" velocity="100"/>
+		    <limit effort="100" velocity="1000"/>
 		    <joint_properties damping="0.0" friction="0.0"/>
       </joint>
 
-      <gazebo reference="${wheel_name}_wheel">
-        <material>Gazebo/Red</material>
-      </gazebo>
     </xacro:macro>
 
     <xacro:add_moving_wheels wheel_name="back_left" x_flag="-1" y_flag="1" />
@@ -138,14 +128,13 @@
         <child link="${joint_name}_wheel_joint" />
         <origin xyz="${x_flag * wheel_dis_x *0.5} ${y_flag * wheel_dis_y *0.5} 0.0" />
         <axis xyz="0 0 1" />
-        <dynamics damping="0.0"/>
-        <limit effort="2.5" velocity="10" lower="-0.785" upper="0.785" />
-        <joint_properties damping="20.0" friction="20.0"/> 
+        <!--effort最大力/力矩 v速度-->
+        <limit effort="10" velocity="1000" lower="-0.6" upper="0.6" />  
+        <!--阻尼系数0-->
+        <dynamics damping="0.1"/>
+        <!--damping阻尼系数 friction摩擦系数-->
+        <joint_properties damping="0.1" friction="1.0"/> 
       </joint>
-
-      <gazebo reference="${joint_name}_wheel_joint">
-        <material>Gazebo/Black</material>
-      </gazebo>
 
       <!--转向轮-->
       <link name="${joint_name}_wheel">
@@ -171,18 +160,11 @@
         <origin xyz="0 0 -0.030" />
         <axis xyz="0 1 0" />
         <dynamics damping="0.0"/>
-        <limit effort="100" velocity="100"/>  
-    	<joint_properties damping="0.0" friction="0.0"/>
+        <limit effort="100" velocity="1000"/>  
+    	<joint_properties damping="0.0" friction="0.0"/>-->
       </joint>
-
-      <gazebo reference="${joint_name}_wheel">
-        <material>Gazebo/Red</material>
-      </gazebo>
     </xacro:macro>
 
     <xacro:add_wheel_joints joint_name="front_left" x_flag="1" y_flag="1" />
     <xacro:add_wheel_joints joint_name="front_right" x_flag="1" y_flag="-1" />
-
-
-    
 </robot>

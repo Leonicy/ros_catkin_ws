@@ -1,0 +1,55 @@
+<?xml version="1.0"?>  
+<!--添加传动装置-->
+<robot name="my_car" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!--传动模型-->
+    <transmission name="front_right_wheel_joint2base_link_trans">
+        <!--SimpleTransmission电机扭矩传递给关节-->
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_right_wheel_joint2base_link" >
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_right_wheel_joint_motor">
+            <!--硬件接口类型 EffortJointInterface执行器通过扭矩控制-->
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <!--减速比-->
+            <mechanicalReduction>1</mechanicalReduction>
+            <!--单位电流下产生的扭矩-->
+            <motorTorqueConstant>100</motorTorqueConstant>
+        </actuator>
+    </transmission>  
+    
+    <transmission name="front_left_wheel_joint2base_link_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_left_wheel_joint2base_link" >
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_left_wheel_joint_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+            <motorTorqueConstant>100</motorTorqueConstant>
+        </actuator>
+    </transmission>
+
+    <transmission name="back_right_wheel2base_link_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="back_right_wheel2base_link" >
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="back_right_wheel_joint_motor">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>      
+    
+    <transmission name="back_left_wheel2base_link_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="back_left_wheel2base_link" >
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="back_left_wheel_joint_motor">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+</robot>

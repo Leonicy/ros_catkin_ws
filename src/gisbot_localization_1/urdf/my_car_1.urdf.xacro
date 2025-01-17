@@ -5,6 +5,8 @@
     <xacro:include filename="inertial_matrix.xacro" />
     <!--本体-->
     <xacro:include filename="my_car_base_1.xacro" />
+    <xacro:include filename="my_car_gazebo_plugins.xacro" />
     <!--控制器-->
-    <xacro:include filename="my_car_control.urdf.xacro" />
+    <xacro:include filename="my_car_twist.xacro" />
+    <xacro:include filename="my_car_ros_control.xacro" />
 </robot>

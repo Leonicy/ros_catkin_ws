@@ -1,0 +1,88 @@
+<?xml version="1.0"?>  
+<!--gazebo插件配置-->
+<robot name="my_car" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <gazebo reference="base_footprint">
+        <turnGravityOff>false</turnGravityOff> <!--关闭重力-->
+    </gazebo>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="back_right_wheel">
+        <material>Gazebo/Black</material>
+        <!--mu1静态摩擦系数 mu2动态摩擦系数-->
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟摩擦力沿x方向-->
+        <fdir1 value="1 0 0"/>
+    </gazebo>
+
+    <gazebo reference="back_left_wheel">
+        <material>Gazebo/Red</material>
+        <!--mu1静态摩擦系数 mu2动态摩擦系数-->
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟主动轮摩擦力沿x方向-->
+        <fdir1 value="1 0 0"/>
+    </gazebo>
+
+    <gazebo reference="front_right_wheel">
+        <material>Gazebo/Red</material>
+        <!--mu1静态摩擦系数 mu2动态摩擦系数-->
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟被动轮支撑力沿z方向-->
+        <fdir1 value="0 0 1"/>
+    </gazebo>
+
+    <gazebo reference="front_left_wheel">
+        <material>Gazebo/Red</material>
+        <!--mu1静态摩擦系数 mu2动态摩擦系数-->
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟被动轮支撑力沿z方向-->
+        <fdir1 value="0 0 1"/>
+    </gazebo>
+
+    <gazebo reference="front_left_wheel_joint">
+        <material>Gazebo/Black</material>
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟被动轮支撑力沿z方向-->
+        <fdir1 value="1 0 0"/>
+    </gazebo>
+
+    <gazebo reference="front_right_wheel_joint">
+        <material>Gazebo/Black</material>
+        <mu1 value="2.0"/>
+        <mu2 value="2.0"/>
+        <!--弹簧系数，数值越大，轮子与地面之间的反作用力越强，轮子回弹得越快-->
+        <kp  value="10000000.0" />
+        <!--阻尼系数，模拟物体在接触表面上的阻尼力，控制物体在接触时的速度变化-->
+        <kd  value="1.0" />
+        <!--接触力，这里模拟被动轮支撑力沿z方向-->
+        <fdir1 value="1 0 0"/>
+    </gazebo>
+</robot>

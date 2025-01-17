@@ -28,6 +28,20 @@ def set_throttle_steer(data):
     pub_pos_front_left_wheel_joint_position.publish(steer)
     pub_pos_front_right_wheel_joint_position.publish(steer)
 
+def cmd_vel_callback(msg):
+    # 这里处理 /cmd_vel 发布的 Twist 消息
+    throttle = msg.linear.x * 33.333  # 根据线速度计算转速
+    steer = msg.angular.z  # 根据角速度计算转向角度
+
+    # 发布速度和转向命令
+    pub_vel_back_left_wheel.publish(throttle)
+    pub_vel_back_right_wheel.publish(throttle)
+    pub_vel_front_left_wheel.publish(throttle)
+    pub_vel_front_right_wheel.publish(throttle)
+
+    pub_pos_front_left_wheel_joint_position.publish(steer)
+    pub_pos_front_right_wheel_joint_position.publish(steer)
+
 def servo_commands():
 
     rospy.init_node('servo_commands', anonymous=True)
